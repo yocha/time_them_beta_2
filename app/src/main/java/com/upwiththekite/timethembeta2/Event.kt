@@ -2,6 +2,7 @@ package com.upwiththekite.timethembeta2
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
+import io.realm.annotations.Required
 import java.util.*
 
 /**
@@ -11,6 +12,7 @@ import java.util.*
 open class Event : RealmObject() {
     @PrimaryKey
     private var id = UUID.randomUUID().toString()
+    @Required
     var name: String = ""
 
     fun getId() : String {

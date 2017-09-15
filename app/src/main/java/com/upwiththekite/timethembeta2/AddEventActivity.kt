@@ -22,13 +22,18 @@ class AddEventActivity : AppCompatActivity() {
             val addEventNameEditText = findViewById<EditText>(R.id.newEventNameEditText)
             val eventName = addEventNameEditText.text.toString()
             if (eventName.isNotBlank()) {
-                val event = Event()
-                event.name = eventName
                 val realm = Realm.getDefaultInstance()
-                realm.beginTransaction()
-                realm.copyToRealm(event)
-                realm.commitTransaction()
-                finish()
+                val result = realm.where(Event::class.java).equalTo("name", eventName).findFirst()
+                if (result == null) {
+                    val event = Event()
+                    event.name = eventName
+                    realm.beginTransaction()
+                    realm.copyToRealm(event)
+                    realm.commitTransaction()
+                    finish()
+                } else {
+                    showAlert("Duplicate event found!")
+                }
             } else {
                 showAlert("Event name can't be blank!")
             }
