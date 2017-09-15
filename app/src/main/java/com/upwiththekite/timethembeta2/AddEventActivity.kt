@@ -17,15 +17,18 @@ class AddEventActivity : AppCompatActivity() {
         val addEventButton = findViewById<Button>(R.id.addNewEventbutton)
         addEventButton.setOnClickListener {
             val addEventNameEditText = findViewById<EditText>(R.id.newEventNameEditText)
+            val eventName = addEventNameEditText.text.toString()
+            if (eventName.isNotBlank()) {
+                val event = Event()
+                event.name = eventName
+                val realm = Realm.getDefaultInstance()
+                realm.beginTransaction()
+                realm.copyToRealm(event)
+                realm.commitTransaction()
+                finish()
+            } else {
 
-            val event = Event()
-            event.name = addEventNameEditText.text.toString()
-
-            val realm = Realm.getDefaultInstance()
-            realm.beginTransaction()
-            realm.copyToRealm(event)
-            realm.commitTransaction()
-            finish()
+            }
         }
 
 

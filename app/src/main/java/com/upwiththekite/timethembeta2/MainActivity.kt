@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         val results = query.findAll()
         val eventListView = findViewById<ListView>(R.id.eventListView)
 
-        eventListView.setOnItemClickListener { adapterView, view, i, l ->
+        eventListView.setOnItemClickListener { _, _, i, _ ->
             val selectEvent = results[i]
             val timeEventIntent = Intent(this, TimeEventActivity::class.java)
             timeEventIntent.putExtra("event", selectEvent.getId())
