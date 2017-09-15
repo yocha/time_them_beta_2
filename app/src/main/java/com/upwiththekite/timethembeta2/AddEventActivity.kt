@@ -1,5 +1,6 @@
 package com.upwiththekite.timethembeta2
 
+import android.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -7,6 +8,8 @@ import android.widget.EditText
 import io.realm.Realm
 
 class AddEventActivity : AppCompatActivity() {
+
+    internal var builder: AlertDialog.Builder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +30,16 @@ class AddEventActivity : AppCompatActivity() {
                 realm.commitTransaction()
                 finish()
             } else {
-
+                showAlert("Event name can't be blank!")
             }
         }
 
-
+        builder = AlertDialog.Builder(this@AddEventActivity)
     }
+
+    private fun showAlert(message: String = "") {
+        builder!!.setMessage(message)
+        builder!!.show()
+    }
+
 }
